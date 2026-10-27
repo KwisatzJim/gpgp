@@ -1,0 +1,32 @@
+.build/
+.swiftpm/
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+node_modules/
+
+# Local credentials, keyrings, identity backups, and mail samples
+.env
+.env.*
+.gnupg/
+GPGP-Key-Backup*
+*.asc
+*.gpg
+*.kbx
+*.key
+*.pem
+*.p12
+*.pfx
+*.eml
+sender.json
+recipients.json
+
+# Compiler coverage and profiling output
+*.profraw
+*.profdata
+
+# Generated Python cache
+__pycache__/
+*.pyc

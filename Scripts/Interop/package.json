@@ -1,0 +1,7 @@
+{
+  "name": "gpgp-interop-check",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node check.mjs" },
+  "devDependencies": { "openpgp": "6.3.2" }
+}

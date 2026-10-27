@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+      - name: Install test engine
+        run: command -v gpg >/dev/null || brew install gnupg
+      - name: Run core regression tests
+        run: swift test
+      - name: Check independent OpenPGP implementation
+        run: |
+          npm ci --prefix Scripts/Interop --ignore-scripts --no-audit --no-fund
+          npm test --prefix Scripts/Interop
+      - name: Build Mail extension and companion without signing
+        run: >-
+          xcodebuild -project GPGP/GPGP.xcodeproj -scheme GPGP
+          -configuration Release -destination 'platform=macOS,arch=arm64'
+          -derivedDataPath /tmp/gpgp-ci-derived
+          CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+          CODE_SIGN_IDENTITY='' DEVELOPMENT_TEAM=''
+          build -quiet

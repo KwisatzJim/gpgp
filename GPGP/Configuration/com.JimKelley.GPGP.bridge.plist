@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+    <key>Label</key><string>com.JimKelley.GPGP.bridge</string>
+    <key>BundleProgram</key><string>Contents/MacOS/GPGPBridge</string>
+    <key>ProgramArguments</key><array><string>GPGPBridge</string><string>--agent</string></array>
+    <key>MachServices</key><dict><key>com.JimKelley.GPGP.bridge</key><true/></dict>
+    <key>ProcessType</key><string>Background</string>
+</dict></plist>
